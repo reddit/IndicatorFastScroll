@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <public name="Widget.RecyclerFastScroll.FastScroll" type="style" />
+    <public name="Widget.RecyclerFastScroll.FastScrollThumb" type="style" />
+
+</resources>
