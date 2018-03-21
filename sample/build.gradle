@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.reddit.indicatorfastscroll.sample"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    implementation project(':indicator-fast-scroll')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    def supportLibVersion = "27.1.1"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    implementation 'androidx.core:core-ktx:0.3'
+
+    implementation 'com.thedeanda:lorem:2.1'
+}

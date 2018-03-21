@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <dimen name="fast_scroller_icon_size">20dp</dimen>
+  <dimen name="fast_scroller_thumb_elevation">2dp</dimen>
+  <dimen name="fast_scroller_thumb_size">32dp</dimen>
+  <dimen name="fast_scroller_default_text_padding">4dp</dimen>
+
+</resources>

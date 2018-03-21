@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Widget.IndicatorFastScroll.FastScroller" parent="android:Widget">
+    <item name="iconColor">?android:textColorPrimary</item>
+    <item name="android:textAppearance">?android:textAppearanceSmall</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="textPadding">@dimen/fast_scroller_default_text_padding</item>
+  </style>
+
+  <style name="Widget.IndicatorFastScroll.FastScrollerThumb" parent="android:Widget">
+    <item name="thumbColor">?colorPrimary</item>
+    <item name="iconColor">?android:textColorPrimaryInverse</item>
+    <item name="android:textAppearance">?android:textAppearance</item>
+    <item name="android:textColor">?android:textColorPrimaryInverse</item>
+  </style>
+
+</resources>

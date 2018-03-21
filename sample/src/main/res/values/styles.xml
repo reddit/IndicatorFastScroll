@@ -1,0 +1,32 @@
+<resources>
+
+  <style name="Theme.FastScrollSample" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <!-- If you set this in your theme, all FastScroller(Thumb)Views will use this style by default -->
+    <item name="indicatorFastScrollerStyle">@style/Widget.FastScrollSample.FastScroller</item>
+    <item name="indicatorFastScrollerThumbStyle">@style/Widget.FastScrollSample.FastScrollerThumb</item>
+  </style>
+
+  <!-- See the parent styles for more attributes -->
+
+  <style name="Widget.FastScrollSample.FastScroller" parent="Widget.IndicatorFastScroll.FastScroller">
+    <item name="iconColor">@color/pressed_selector</item>
+    <item name="android:textColor">@color/pressed_selector</item>
+  </style>
+
+  <style name="Widget.FastScrollSample.FastScroller.Floating">
+    <item name="iconColor">?colorAccent</item>
+    <item name="android:textColor">?colorAccent</item>
+    <item name="android:background">@drawable/fastscroller_floating_background</item>
+    <item name="android:elevation">2dp</item>
+  </style>
+
+  <style name="Widget.FastScrollSample.FastScrollerThumb" parent="Widget.IndicatorFastScroll.FastScrollerThumb" />
+
+  <style name="Widget.FastScrollSample.FastScrollerThumb.Colorful">
+    <item name="thumbColor">?colorAccent</item>
+  </style>
+
+</resources>

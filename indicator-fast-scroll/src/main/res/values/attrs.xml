@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <attr name="indicatorFastScrollerStyle" format="reference" />
+  <attr name="indicatorFastScrollerThumbStyle" format="reference" />
+
+  <declare-styleable name="FastScrollerView">
+    <attr name="iconColor" format="color" />
+    <attr name="android:textAppearance" />
+    <attr name="android:textColor" />
+    <attr name="textPadding" format="dimension" />
+  </declare-styleable>
+
+  <declare-styleable name="FastScrollerThumbView">
+    <attr name="thumbColor" format="color" />
+    <attr name="iconColor" />
+    <attr name="android:textAppearance" />
+    <attr name="android:textColor" />
+  </declare-styleable>
+
+</resources>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/main_menu"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <View
+        android:id="@+id/main_header_bg"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:background="?colorPrimary"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/main_menu_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:elevation="4dp"
+        android:gravity="start|bottom"
+        android:minHeight="96dp"
+        android:text="Indicator Fast Scroller"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_header_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/main_header_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:drawableEnd="@drawable/ic_upvote"
+        android:elevation="4dp"
+        android:gravity="start|center_vertical"
+        android:text="by reddit"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="?android:textColorSecondaryInverse"
+        app:layout_constraintBottom_toBottomOf="@+id/main_header_bg"
+        app:layout_constraintStart_toStartOf="@+id/main_menu_title"
+        />
+
+    <LinearLayout
+        android:id="@+id/main_sample_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_header_bg"
+        />
+
+  </android.support.constraint.ConstraintLayout>
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/main_sample_toolbar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:background="?colorPrimary"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+      app:layout_constraintEnd_toEndOf="@+id/main_sample_fragment"
+      app:layout_constraintStart_toStartOf="@+id/main_sample_fragment"
+      app:layout_constraintTop_toTopOf="parent"
+      app:navigationIcon="?homeAsUpIndicator"
+      app:title="Sample title"
+      tools:visibility="gone"
+      />
+
+  <FrameLayout
+      android:id="@+id/main_sample_fragment"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/main_sample_toolbar"
+      />
+
+</android.support.constraint.ConstraintLayout>
