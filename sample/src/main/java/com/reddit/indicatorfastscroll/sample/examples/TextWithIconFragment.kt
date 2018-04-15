@@ -8,15 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.reddit.indicatorfastscroll.sample.*
-import com.reddit.recyclerfastscroll.FastScrollItemIndicator
-import com.reddit.recyclerfastscroll.FastScrollThumbView
-import com.reddit.recyclerfastscroll.FastScrollView
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
+import com.reddit.indicatorfastscroll.FastScrollerThumbView
+import com.reddit.indicatorfastscroll.FastScrollerView
 
 class TextWithIconFragment : Fragment() {
 
   private lateinit var recyclerView: RecyclerView
-  private lateinit var fastScrollView: FastScrollView
-  private lateinit var fastScrollThumbView: FastScrollThumbView
+  private lateinit var fastScrollerView: FastScrollerView
+  private lateinit var fastScrollerThumbView: FastScrollerThumbView
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     val view = inflater.inflate(R.layout.sample_basic, container, false)
@@ -30,8 +30,8 @@ class TextWithIconFragment : Fragment() {
       adapter = SampleAdapter(data)
     }
 
-    fastScrollView = view.findViewById(R.id.sample_basic_fastscroll)
-    fastScrollView.apply {
+    fastScrollerView = view.findViewById(R.id.sample_basic_fastscroller)
+    fastScrollerView.apply {
       setupWithRecyclerView(
           recyclerView,
           { position ->
@@ -53,9 +53,9 @@ class TextWithIconFragment : Fragment() {
       )
     }
 
-    fastScrollThumbView = view.findViewById(R.id.sample_basic_fastscroll_thumb)
-    fastScrollThumbView.apply {
-      setupWithFastScrollView(fastScrollView)
+    fastScrollerThumbView = view.findViewById(R.id.sample_basic_fastscroller_thumb)
+    fastScrollerThumbView.apply {
+      setupWithFastScrollView(fastScrollerView)
     }
 
     return view

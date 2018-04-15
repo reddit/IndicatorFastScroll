@@ -1,4 +1,4 @@
-package com.reddit.recyclerfastscroll
+package com.reddit.indicatorfastscroll
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -22,30 +22,29 @@ import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.use
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import com.reddit.indicatorfastscroll.R
 import kotlin.properties.Delegates
 
 /**
- * Companion view for a [fast scroller][FastScrollView] that shows its currently pressed indicator
+ * Companion view for a [fast scroller][FastScrollerView] that shows its currently pressed indicator
  * in a small bubble near the user's finger.
  * This view should be vertically aligned with its fast scroller; its top and bottom should be
  * the same, though they don't necessarily need to have the same parent view. Horizontal placement
  * is independent of the fast scroller's.
- * A FastScrollThumbView is not required for a fast scroller to work, but it provides an
+ * A FastScrollerThumbView is not required for a fast scroller to work, but it provides an
  * out-of-the-box solution for visible feedback.
  *
  * @see setupWithFastScrollView
- * @see FastScrollView
+ * @see FastScrollerView
  */
-class FastScrollThumbView @JvmOverloads constructor(
+class FastScrollerThumbView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.recyclerFastScrollThumbStyle
+    defStyleAttr: Int = R.attr.indicatorFastScrollerThumbStyle
 ) : ConstraintLayout(
     context,
     attrs,
     defStyleAttr
-), FastScrollView.ItemIndicatorSelectedCallback {
+), FastScrollerView.ItemIndicatorSelectedCallback {
 
   private var thumbColor: ColorStateList by Delegates.notNull()
   private var iconColor: Int by Delegates.notNull()
@@ -56,32 +55,32 @@ class FastScrollThumbView @JvmOverloads constructor(
   private val textView: TextView
   private val iconView: ImageView
 
-  private val isSetup: Boolean get() = (fastScrollView != null)
-  private var fastScrollView: FastScrollView? = null
+  private val isSetup: Boolean get() = (fastScrollerView != null)
+  private var fastScrollerView: FastScrollerView? = null
 
   private val thumbAnimation: SpringAnimation
 
   init {
     context.theme.obtainStyledAttributes(
         attrs,
-        R.styleable.FastScrollThumbView,
+        R.styleable.FastScrollerThumbView,
         defStyleAttr,
-        R.style.Widget_RecyclerFastScroll_FastScrollThumb
+        R.style.Widget_IndicatorFastScroll_FastScrollerThumb
     ).use { attrsArray ->
-      throwIfMissingAttrs(friendlyStyleName = "@style/Widget.RecyclerFastScroll.FastScrollThumb") {
-        thumbColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollThumbView_thumbColor)
-        iconColor = attrsArray.getColorOrThrow(R.styleable.FastScrollThumbView_iconColor)
+      throwIfMissingAttrs(friendlyStyleName = "@style/Widget.IndicatorFastScroll.FastScrollerThumb") {
+        thumbColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerThumbView_thumbColor)
+        iconColor = attrsArray.getColorOrThrow(R.styleable.FastScrollerThumbView_iconColor)
         textAppearanceRes = attrsArray.getResourceIdOrThrow(
-            R.styleable.FastScrollThumbView_android_textAppearance
+            R.styleable.FastScrollerThumbView_android_textAppearance
         )
-        textColor = attrsArray.getColorOrThrow(R.styleable.FastScrollThumbView_android_textColor)
+        textColor = attrsArray.getColorOrThrow(R.styleable.FastScrollerThumbView_android_textColor)
       }
     }
 
-    LayoutInflater.from(context).inflate(R.layout.fast_scroll_thumb_view, this, true)
-    thumbView = findViewById(R.id.fast_scroll_thumb)
-    textView = thumbView.findViewById(R.id.fast_scroll_thumb_text)
-    iconView = thumbView.findViewById(R.id.fast_scroll_thumb_icon)
+    LayoutInflater.from(context).inflate(R.layout.fast_scroller_thumb_view, this, true)
+    thumbView = findViewById(R.id.fast_scroller_thumb)
+    textView = thumbView.findViewById(R.id.fast_scroller_thumb_text)
+    iconView = thumbView.findViewById(R.id.fast_scroller_thumb_icon)
 
     thumbView.stateListAnimator?.let { animator ->
       // Workaround for StateListAnimator not keeping its state in sync with its drawable pre-attach
@@ -111,20 +110,20 @@ class FastScrollThumbView @JvmOverloads constructor(
   }
 
   /**
-   * Sets up this [FastScrollThumbView] to show the currently pressed item indicator for
-   * [fastScrollView]. It will follow the user's finger and is only visible when the fast scroller
+   * Sets up this [FastScrollerThumbView] to show the currently pressed item indicator for
+   * [fastScrollerView]. It will follow the user's finger and is only visible when the fast scroller
    * is being used.
    * Only call this function once.
    *
-   * @param fastScrollView the [FastScrollView] whose currently pressed indicator will be presented.
+   * @param fastScrollerView the [FastScrollerView] whose currently pressed indicator will be presented.
    */
   @SuppressLint("ClickableViewAccessibility")
-  fun setupWithFastScrollView(fastScrollView: FastScrollView) {
-    if (isSetup) throw IllegalStateException("Only set this view's FastScrollView once!")
-    this.fastScrollView = fastScrollView
+  fun setupWithFastScrollView(fastScrollerView: FastScrollerView) {
+    if (isSetup) throw IllegalStateException("Only set this view's FastScrollerView once!")
+    this.fastScrollerView = fastScrollerView
 
-    fastScrollView.itemIndicatorSelectedCallbacks += this
-    fastScrollView.setOnTouchListener { _, event ->
+    fastScrollerView.itemIndicatorSelectedCallbacks += this
+    fastScrollerView.setOnTouchListener { _, event ->
       if (event.action == MotionEvent.ACTION_DOWN) {
         isActivated = true
       } else if (event.action == MotionEvent.ACTION_UP) {

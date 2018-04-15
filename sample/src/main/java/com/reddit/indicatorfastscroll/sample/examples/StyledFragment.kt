@@ -11,15 +11,15 @@ import com.reddit.indicatorfastscroll.sample.ListItem
 import com.reddit.indicatorfastscroll.sample.R
 import com.reddit.indicatorfastscroll.sample.SAMPLE_DATA_TEXT
 import com.reddit.indicatorfastscroll.sample.SampleAdapter
-import com.reddit.recyclerfastscroll.FastScrollItemIndicator
-import com.reddit.recyclerfastscroll.FastScrollThumbView
-import com.reddit.recyclerfastscroll.FastScrollView
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
+import com.reddit.indicatorfastscroll.FastScrollerThumbView
+import com.reddit.indicatorfastscroll.FastScrollerView
 
 class StyledFragment : Fragment() {
 
   private lateinit var recyclerView: RecyclerView
-  private lateinit var fastScrollView: FastScrollView
-  private lateinit var fastScrollThumbView: FastScrollThumbView
+  private lateinit var fastScrollerView: FastScrollerView
+  private lateinit var fastScrollerThumbView: FastScrollerThumbView
 
   override fun onCreateView(
       inflater: LayoutInflater,
@@ -36,8 +36,8 @@ class StyledFragment : Fragment() {
       adapter = SampleAdapter(data)
     }
 
-    fastScrollView = view.findViewById(R.id.sample_styled_fastscroll)
-    fastScrollView.apply {
+    fastScrollerView = view.findViewById(R.id.sample_styled_fastscroller)
+    fastScrollerView.apply {
       setupWithRecyclerView(
           recyclerView,
           { position ->
@@ -55,9 +55,9 @@ class StyledFragment : Fragment() {
       )
     }
 
-    fastScrollThumbView = view.findViewById(R.id.sample_styled_fastscroll_thumb)
-    fastScrollThumbView.apply {
-      setupWithFastScrollView(fastScrollView)
+    fastScrollerThumbView = view.findViewById(R.id.sample_styled_fastscroller_thumb)
+    fastScrollerThumbView.apply {
+      setupWithFastScrollView(fastScrollerView)
     }
 
     return view

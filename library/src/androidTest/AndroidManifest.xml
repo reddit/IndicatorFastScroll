@@ -5,7 +5,7 @@
 
   <application android:theme="@style/Theme.Test">
 
-    <activity android:name="com.reddit.recyclerfastscroll.TestActivity" />
+    <activity android:name="com.reddit.indicatorfastscroll.TestActivity" />
 
   </application>
 

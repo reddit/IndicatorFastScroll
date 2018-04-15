@@ -1,13 +1,15 @@
 package com.reddit.indicatorfastscroll.sample
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.view.isGone
 import com.reddit.indicatorfastscroll.sample.examples.*
+import com.thedeanda.lorem.LoremIpsum
 
 /**
  * The meaty part is in the sample fragments.
@@ -23,7 +25,12 @@ class SampleActivity : AppCompatActivity() {
     setContentView(R.layout.main)
     val rootView: ViewGroup = findViewById(R.id.main_root)
     val menuView: ViewGroup = findViewById(R.id.main_menu)
-    val buttonsView: ViewGroup = findViewById(R.id.main_buttons)
+    val sampleToolbarView: Toolbar = findViewById(R.id.main_sample_toolbar)
+    val sampleButtonsView: ViewGroup = findViewById(R.id.main_sample_buttons)
+
+    sampleToolbarView.setNavigationOnClickListener {
+      supportFragmentManager.popBackStack()
+    }
 
     Samples.values().forEach { sample ->
       val button = layoutInflater.inflate(R.layout.sample_menu_button, rootView, false).apply {
@@ -32,20 +39,35 @@ class SampleActivity : AppCompatActivity() {
         setOnClickListener {
           supportFragmentManager
               .beginTransaction()
-              .add(
-                  R.id.main_root,
+              .replace(
+                  R.id.main_sample_fragment,
                   Fragment.instantiate(this@SampleActivity, sample.fragmentClass.name)
               )
-              .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
               .addToBackStack(null)
               .commit()
         }
       }
-      buttonsView.addView(button)
+      sampleButtonsView.addView(button)
     }
 
+    fun updateViews() {
+      val sampleFragment = supportFragmentManager.findFragmentById(R.id.main_sample_fragment)
+      val isShowingSample = (sampleFragment != null)
+      menuView.isGone = isShowingSample
+      sampleToolbarView.isGone = !isShowingSample
+      sampleToolbarView.title = sampleFragment?.let {
+        Samples.values().find { it.fragmentClass == sampleFragment::class.java }?.title
+      }
+    }
+
+    updateViews()
     supportFragmentManager.addOnBackStackChangedListener {
-      menuView.isGone = (supportFragmentManager.backStackEntryCount > 0)
+      updateViews()
+    }
+
+    AsyncTask.execute {
+      // Preload the sample data. Not thread-safe, but not a big deal.
+      LoremIpsum.getInstance()
     }
   }
 

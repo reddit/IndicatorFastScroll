@@ -1,4 +1,4 @@
-package com.reddit.recyclerfastscroll
+package com.reddit.indicatorfastscroll
 
 import android.support.annotation.DrawableRes
 

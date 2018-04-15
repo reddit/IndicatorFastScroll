@@ -1,4 +1,4 @@
-package com.reddit.recyclerfastscroll
+package com.reddit.indicatorfastscroll
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions
@@ -47,7 +47,7 @@ class Tests {
     activity.runOnUiThread {
       activity.presentData(items)
     }
-    onView(withId(R.id.test_fastscroll)).check(matches(
+    onView(withId(R.id.test_fastscroller)).check(matches(
         allOf(expectedTexts.map { withChild(withText(it)) })
     ))
   }
@@ -59,12 +59,12 @@ class Tests {
         TestActivity.ListItem("B", showInFastScroll = false),
         TestActivity.ListItem("C")
     )
-    val expectedText = "A\nB"
+    val expectedText = "A\nC"
 
     activity.runOnUiThread {
       activity.presentData(items)
     }
-    onView(withId(R.id.test_fastscroll)).check(matches(withChild(withText(expectedText))))
+    onView(withId(R.id.test_fastscroller)).check(matches(withChild(withText(expectedText))))
   }
 
   @Test
@@ -115,7 +115,7 @@ class Tests {
     )))
     onView(allOf(
         withText(targetItem.text),
-        withParent(withId(R.id.test_fastscroll))
+        withParent(withId(R.id.test_fastscroller))
     )).perform(ViewActions.longClick())
     onView(targetViewMatcher).check(matches(isCompletelyDisplayed()))
     onView(withId(R.id.test_recyclerview)).check(matches(

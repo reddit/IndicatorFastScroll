@@ -1,4 +1,4 @@
-package com.reddit.recyclerfastscroll
+package com.reddit.indicatorfastscroll
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,7 +17,6 @@ import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.use
 import androidx.core.view.children
 import androidx.core.view.updatePadding
-import com.reddit.indicatorfastscroll.R
 import kotlin.properties.Delegates
 
 typealias ItemIndicatorWithPosition = Pair<FastScrollItemIndicator, Int>
@@ -29,13 +28,13 @@ typealias ItemIndicatorWithPosition = Pair<FastScrollItemIndicator, Int>
  * the RecyclerView, and has no layout dependencies.
  *
  * @see setupWithRecyclerView
- * @see FastScrollThumbView
+ * @see FastScrollerThumbView
  */
-class FastScrollView @JvmOverloads constructor(
+class FastScrollerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.recyclerFastScrollStyle,
-    defStyleRes: Int = R.style.Widget_RecyclerFastScroll_FastScroll
+    defStyleAttr: Int = R.attr.indicatorFastScrollerStyle,
+    defStyleRes: Int = R.style.Widget_IndicatorFastScroll_FastScroller
 ) : LinearLayout(
     context,
     attrs,
@@ -90,17 +89,17 @@ class FastScrollView @JvmOverloads constructor(
   init {
     context.theme.obtainStyledAttributes(
         attrs,
-        R.styleable.FastScrollView,
+        R.styleable.FastScrollerView,
         defStyleAttr,
         defStyleRes
     ).use { attrsArray ->
-      throwIfMissingAttrs(friendlyStyleName = "@style/Widget.RecyclerFastScroll.FastScroll") {
-        iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollView_iconColor)
+      throwIfMissingAttrs(friendlyStyleName = "@style/Widget.IndicatorFastScroll.FastScroller") {
+        iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_iconColor)
         textAppearanceRes = attrsArray.getResourceIdOrThrow(
-            R.styleable.FastScrollView_android_textAppearance
+            R.styleable.FastScrollerView_android_textAppearance
         )
-        textColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollView_android_textColor)
-        textPadding = attrsArray.getDimensionOrThrow(R.styleable.FastScrollView_textPadding)
+        textColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_android_textColor)
+        textPadding = attrsArray.getDimensionOrThrow(R.styleable.FastScrollerView_textPadding)
       }
     }
 
@@ -123,7 +122,7 @@ class FastScrollView @JvmOverloads constructor(
   }
 
   /**
-   * Sets up this [FastScrollView] to present item indicators for [recyclerView]'s data.
+   * Sets up this [FastScrollerView] to present item indicators for [recyclerView]'s data.
    * The data is observed through its adapter, and each item is (optionally) mapped to an indicator
    * with [getItemIndicator]. After calling one of the adapter's notify methods,
    * [the list of indicators][itemIndicators] will be built and presented.
@@ -139,10 +138,10 @@ class FastScrollView @JvmOverloads constructor(
    *                         Called on the UI thread.
    * @param showIndicator an optional predicate for filtering indicators. This can be changed
    *                      (or removed) at any time.
-   *                      See [FastScrollView.showIndicator].
-   * @param useDefaultScroller whether or not this FastScrollView should automatically scroll
+   *                      See [FastScrollerView.showIndicator].
+   * @param useDefaultScroller whether or not this FastScrollerView should automatically scroll
    *                           [recyclerView] when an indicator is pressed.
-   *                           See [FastScrollView.useDefaultScroller].
+   *                           See [FastScrollerView.useDefaultScroller].
    */
   fun setupWithRecyclerView(
       recyclerView: RecyclerView,
@@ -212,7 +211,7 @@ class FastScrollView @JvmOverloads constructor(
 
     fun createIconView(iconIndicator: FastScrollItemIndicator.Icon): ImageView =
         (LayoutInflater.from(context).inflate(
-            R.layout.fast_scroll_indicator_icon, this, false
+            R.layout.fast_scroller_indicator_icon, this, false
         ) as ImageView).apply {
           iconColor?.let(::setImageTintList)
           setImageResource(iconIndicator.iconRes)
@@ -221,7 +220,7 @@ class FastScrollView @JvmOverloads constructor(
 
     fun createTextView(textIndicators: List<FastScrollItemIndicator.Text>): TextView =
         (LayoutInflater.from(context).inflate(
-            R.layout.fast_scroll_indicator_text, this, false
+            R.layout.fast_scroller_indicator_text, this, false
         ) as TextView).apply {
           TextViewCompat.setTextAppearance(this, textAppearanceRes)
           textColor?.let(::setTextColor)

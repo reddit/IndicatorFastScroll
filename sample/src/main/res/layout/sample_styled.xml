@@ -22,9 +22,9 @@
       tools:listitem="@layout/data_item"
       />
 
-  <com.reddit.recyclerfastscroll.FastScrollView
-      android:id="@+id/sample_styled_fastscroll"
-      style="@style/Widget.FastScrollSample.FastScroll.Floating"
+  <com.reddit.indicatorfastscroll.FastScrollerView
+      android:id="@+id/sample_styled_fastscroller"
+      style="@style/Widget.FastScrollSample.FastScroller.Floating"
       android:layout_width="32dp"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
@@ -35,15 +35,15 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <com.reddit.recyclerfastscroll.FastScrollThumbView
-      android:id="@+id/sample_styled_fastscroll_thumb"
-      style="@style/Widget.FastScrollSample.FastScrollThumb.Colorful"
+  <com.reddit.indicatorfastscroll.FastScrollerThumbView
+      android:id="@+id/sample_styled_fastscroller_thumb"
+      style="@style/Widget.FastScrollSample.FastScrollerThumb.Colorful"
       android:layout_width="40dp"
       android:layout_height="0dp"
       android:layout_marginEnd="16dp"
-      app:layout_constraintBottom_toBottomOf="@+id/sample_styled_fastscroll"
-      app:layout_constraintEnd_toStartOf="@+id/sample_styled_fastscroll"
-      app:layout_constraintTop_toTopOf="@+id/sample_styled_fastscroll"
+      app:layout_constraintBottom_toBottomOf="@+id/sample_styled_fastscroller"
+      app:layout_constraintEnd_toStartOf="@+id/sample_styled_fastscroller"
+      app:layout_constraintTop_toTopOf="@+id/sample_styled_fastscroller"
       />
 
 </android.support.constraint.ConstraintLayout>

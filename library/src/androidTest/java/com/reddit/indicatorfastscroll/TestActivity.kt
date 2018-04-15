@@ -1,4 +1,4 @@
-package com.reddit.recyclerfastscroll
+package com.reddit.indicatorfastscroll
 
 import android.content.Context
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.reddit.indicatorfastscroll.test.R
 class TestActivity : AppCompatActivity() {
 
   private lateinit var recyclerView: RecyclerView
-  private lateinit var fastScrollView: FastScrollView
+  private lateinit var fastScrollerView: FastScrollerView
 
   private lateinit var testAdapter: TestAdapter
 
@@ -23,7 +23,7 @@ class TestActivity : AppCompatActivity() {
     setContentView(R.layout.test)
 
     recyclerView = findViewById(R.id.test_recyclerview)
-    fastScrollView = findViewById(R.id.test_fastscroll)
+    fastScrollerView = findViewById(R.id.test_fastscroller)
 
     testAdapter = TestAdapter()
 
@@ -31,7 +31,7 @@ class TestActivity : AppCompatActivity() {
       layoutManager = LinearLayoutManager(context)
       adapter = testAdapter
     }
-    fastScrollView.setupWithRecyclerView(
+    fastScrollerView.setupWithRecyclerView(
         recyclerView,
         { position ->
           val item = testAdapter.data[position]

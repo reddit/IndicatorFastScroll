@@ -10,8 +10,8 @@
       android:layout_height="match_parent"
       />
 
-  <com.reddit.recyclerfastscroll.FastScrollView
-      android:id="@+id/test_fastscroll"
+  <com.reddit.indicatorfastscroll.FastScrollerView
+      android:id="@+id/test_fastscroller"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="end|center_vertical"
