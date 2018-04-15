@@ -16,12 +16,12 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.content.res.getColorOrThrow
-import androidx.content.res.getColorStateListOrThrow
-import androidx.content.res.getResourceIdOrThrow
-import androidx.content.res.use
-import androidx.view.doOnPreDraw
-import androidx.view.isVisible
+import androidx.core.content.res.getColorOrThrow
+import androidx.core.content.res.getColorStateListOrThrow
+import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.content.res.use
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import com.reddit.indicatorfastscroll.R
 import kotlin.properties.Delegates
 

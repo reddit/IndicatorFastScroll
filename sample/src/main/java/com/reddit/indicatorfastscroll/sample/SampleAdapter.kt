@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.view.updatePaddingRelative
+import androidx.core.view.updatePaddingRelative
 
 class SampleAdapter(
     private val data: List<ListItem>

@@ -6,8 +6,8 @@ import android.support.annotation.AttrRes
 import android.support.annotation.DimenRes
 import android.support.v4.content.ContextCompat
 import android.view.View
-import androidx.content.res.getResourceIdOrThrow
-import androidx.content.res.use
+import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.content.res.use
 import java.lang.IllegalArgumentException
 
 internal fun Context.getColorFromAttr(@AttrRes attrId: Int): Int {

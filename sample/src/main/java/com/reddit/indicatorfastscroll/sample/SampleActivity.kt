@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.view.isGone
+import androidx.core.view.isGone
 import com.reddit.indicatorfastscroll.sample.examples.*
 
 /**

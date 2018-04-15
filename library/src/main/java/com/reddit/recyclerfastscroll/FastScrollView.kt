@@ -11,12 +11,12 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.content.res.getColorStateListOrThrow
-import androidx.content.res.getDimensionOrThrow
-import androidx.content.res.getResourceIdOrThrow
-import androidx.content.res.use
-import androidx.view.children
-import androidx.view.updatePadding
+import androidx.core.content.res.getColorStateListOrThrow
+import androidx.core.content.res.getDimensionOrThrow
+import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.content.res.use
+import androidx.core.view.children
+import androidx.core.view.updatePadding
 import com.reddit.indicatorfastscroll.R
 import kotlin.properties.Delegates
 
