@@ -143,6 +143,7 @@ class FastScrollerView @JvmOverloads constructor(
    *                           [recyclerView] when an indicator is pressed.
    *                           See [FastScrollerView.useDefaultScroller].
    */
+  @JvmOverloads
   fun setupWithRecyclerView(
       recyclerView: RecyclerView,
       getItemIndicator: (Int) -> FastScrollItemIndicator?,
