@@ -7,33 +7,33 @@
     tools:parentTag="android.support.constraint.ConstraintLayout"
     >
 
-    <FrameLayout
-        android:id="@+id/fast_scroll_thumb"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/thumb_circle"
-        android:elevation="@dimen/recycler_fast_scroll_thumb_elevation"
-        android:stateListAnimator="@animator/fast_scroll_thumb"
-        app:layout_constraintDimensionRatio="W,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
+  <FrameLayout
+      android:id="@+id/fast_scroll_thumb"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@drawable/thumb_circle"
+      android:elevation="@dimen/recycler_fast_scroll_thumb_elevation"
+      android:stateListAnimator="@animator/fast_scroll_thumb"
+      app:layout_constraintDimensionRatio="W,1:1"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      >
 
-        <TextView
-            android:id="@+id/fast_scroll_thumb_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            tools:text="A"
-            />
+    <TextView
+        android:id="@+id/fast_scroll_thumb_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:text="A"
+        />
 
-        <ImageView
-            android:id="@+id/fast_scroll_thumb_icon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerInside"
-            />
+    <ImageView
+        android:id="@+id/fast_scroll_thumb_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        />
 
-    </FrameLayout>
+  </FrameLayout>
 
 </merge>

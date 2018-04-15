@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="recyclerFastScrollStyle" format="reference" />
-    <attr name="recyclerFastScrollThumbStyle" format="reference" />
+  <attr name="recyclerFastScrollStyle" format="reference" />
+  <attr name="recyclerFastScrollThumbStyle" format="reference" />
 
-    <declare-styleable name="FastScrollView">
-        <attr name="iconColor" format="color" />
-        <attr name="android:textAppearance" />
-        <attr name="android:textColor" />
-        <attr name="textPadding" format="dimension" />
-    </declare-styleable>
+  <declare-styleable name="FastScrollView">
+    <attr name="iconColor" format="color" />
+    <attr name="android:textAppearance" />
+    <attr name="android:textColor" />
+    <attr name="textPadding" format="dimension" />
+  </declare-styleable>
 
-    <declare-styleable name="FastScrollThumbView">
-        <attr name="thumbColor" format="color" />
-        <attr name="iconColor" />
-        <attr name="android:textAppearance" />
-        <attr name="android:textColor" />
-    </declare-styleable>
+  <declare-styleable name="FastScrollThumbView">
+    <attr name="thumbColor" format="color" />
+    <attr name="iconColor" />
+    <attr name="android:textAppearance" />
+    <attr name="android:textColor" />
+  </declare-styleable>
 
 </resources>

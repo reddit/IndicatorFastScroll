@@ -7,37 +7,37 @@
     android:background="?android:windowBackground"
     >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/sample_basic_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/data_item"
-        />
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/sample_basic_recyclerview"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:clipToPadding="false"
+      android:paddingBottom="8dp"
+      android:paddingTop="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:listitem="@layout/data_item"
+      />
 
-    <com.reddit.recyclerfastscroll.FastScrollView
-        android:id="@+id/sample_basic_fastscroll"
-        android:layout_width="32dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+  <com.reddit.recyclerfastscroll.FastScrollView
+      android:id="@+id/sample_basic_fastscroll"
+      android:layout_width="32dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
-    <com.reddit.recyclerfastscroll.FastScrollThumbView
-        android:id="@+id/sample_basic_fastscroll_thumb"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/sample_basic_fastscroll"
-        app:layout_constraintEnd_toStartOf="@+id/sample_basic_fastscroll"
-        app:layout_constraintTop_toTopOf="@+id/sample_basic_fastscroll"
-        />
+  <com.reddit.recyclerfastscroll.FastScrollThumbView
+      android:id="@+id/sample_basic_fastscroll_thumb"
+      android:layout_width="40dp"
+      android:layout_height="0dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintBottom_toBottomOf="@+id/sample_basic_fastscroll"
+      app:layout_constraintEnd_toStartOf="@+id/sample_basic_fastscroll"
+      app:layout_constraintTop_toTopOf="@+id/sample_basic_fastscroll"
+      />
 
 </android.support.constraint.ConstraintLayout>
