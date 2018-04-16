@@ -12,10 +12,10 @@ import com.reddit.indicatorfastscroll.test.R
 
 class TestActivity : AppCompatActivity() {
 
-  private lateinit var recyclerView: RecyclerView
-  private lateinit var fastScrollerView: FastScrollerView
+  lateinit var recyclerView: RecyclerView
+  lateinit var fastScrollerView: FastScrollerView
 
-  private lateinit var testAdapter: TestAdapter
+  lateinit var testAdapter: TestAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

@@ -47,6 +47,8 @@ class FastScrollerView @JvmOverloads constructor(
   private var textColor: ColorStateList? = null
   private var textPadding: Float by Delegates.notNull()
 
+  internal lateinit var itemIndicatorsBuilder: ItemIndicatorsBuilder
+
   val itemIndicatorSelectedCallbacks: MutableList<ItemIndicatorSelectedCallback> = ArrayList()
 
   private val isSetup: Boolean get() = (recyclerView != null)
@@ -87,6 +89,8 @@ class FastScrollerView @JvmOverloads constructor(
     get() = itemIndicatorsWithPositions.map(ItemIndicatorWithPosition::first)
 
   init {
+    itemIndicatorsBuilder = ItemIndicatorsBuilder()
+
     context.theme.obtainStyledAttributes(
         attrs,
         R.styleable.FastScrollerView,
@@ -190,18 +194,8 @@ class FastScrollerView @JvmOverloads constructor(
 
   private fun updateItemIndicators() {
     itemIndicatorsWithPositions.clear()
-    (0 until recyclerView!!.adapter.itemCount)
-        .mapNotNull { position ->
-          getItemIndicator(position)?.let { ItemIndicatorWithPosition(it, position) }
-        }
-        .distinctBy(ItemIndicatorWithPosition::first)
-        .let { unfilteredIndicators ->
-          showIndicator?.let {
-            unfilteredIndicators.filterIndexed { index, (indicator, _) ->
-              it(indicator, index, unfilteredIndicators.size)
-            }
-          } ?: unfilteredIndicators
-        }
+    itemIndicatorsBuilder
+        .buildItemIndicators(recyclerView!!, getItemIndicator, showIndicator)
         .toCollection(itemIndicatorsWithPositions)
 
     bindItemIndicatorViews()
@@ -307,7 +301,7 @@ class FastScrollerView @JvmOverloads constructor(
     }
 
     val touchY = event.y.toInt()
-    children.forEachIndexed { index, view ->
+    children.forEach { view ->
       if (view.containsY(touchY)) {
         when (view) {
           is ImageView -> {

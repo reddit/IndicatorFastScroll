@@ -8,8 +8,8 @@ import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.reddit.indicatorfastscroll.test.R
-import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.not
+import org.hamcrest.Matchers.*
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -124,6 +124,34 @@ class Tests {
             isCompletelyDisplayed()
         )))
     ))
+  }
+
+  @Test
+  fun checkUpdateItemIndicatorsOnlyCalledOnceAfterMultiplePosts() {
+    val items = listOf(
+        TestActivity.ListItem("A"),
+        TestActivity.ListItem("B"),
+        TestActivity.ListItem("C")
+    )
+
+    val testItemIndicatorsBuilder = TestItemIndicatorsBuilder()
+    activity.fastScrollerView.itemIndicatorsBuilder = testItemIndicatorsBuilder
+    activity.runOnUiThread {
+      // Call adapter.notifyDataSetChanged() multiple times in the same frame
+      activity.presentData(items)
+      activity.presentData(items)
+      activity.presentData(items)
+    }
+    onView(withId(R.id.test_fastscroller)).check(matches(anything())) // Wait for idle
+    assertEquals(1, testItemIndicatorsBuilder.timesBuildCalled)
+
+    activity.runOnUiThread {
+      activity.presentData(items)
+      activity.presentData(items)
+      activity.presentData(items)
+    }
+    onView(withId(R.id.test_fastscroller)).check(matches(anything()))
+    assertEquals(2, testItemIndicatorsBuilder.timesBuildCalled)
   }
 
 }
