@@ -47,7 +47,7 @@ class FastScrollerView @JvmOverloads constructor(
   private var textColor: ColorStateList? = null
   private var textPadding: Float by Delegates.notNull()
 
-  internal lateinit var itemIndicatorsBuilder: ItemIndicatorsBuilder
+  internal var itemIndicatorsBuilder: ItemIndicatorsBuilder = ItemIndicatorsBuilder()
 
   val itemIndicatorSelectedCallbacks: MutableList<ItemIndicatorSelectedCallback> = ArrayList()
 
@@ -89,8 +89,6 @@ class FastScrollerView @JvmOverloads constructor(
     get() = itemIndicatorsWithPositions.map(ItemIndicatorWithPosition::first)
 
   init {
-    itemIndicatorsBuilder = ItemIndicatorsBuilder()
-
     context.theme.obtainStyledAttributes(
         attrs,
         R.styleable.FastScrollerView,
