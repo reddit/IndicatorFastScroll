@@ -42,11 +42,6 @@ class FastScrollerView @JvmOverloads constructor(
     defStyleRes
 ) {
 
-  private var iconColor: ColorStateList? = null
-  private var textAppearanceRes: Int by Delegates.notNull()
-  private var textColor: ColorStateList? = null
-  private var textPadding: Float by Delegates.notNull()
-
   internal var itemIndicatorsBuilder: ItemIndicatorsBuilder = ItemIndicatorsBuilder()
 
   val itemIndicatorSelectedCallbacks: MutableList<ItemIndicatorSelectedCallback> = ArrayList()
