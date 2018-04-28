@@ -104,6 +104,7 @@ class FastScrollerView @JvmOverloads constructor(
         textPadding = attrsArray.getDimensionOrThrow(R.styleable.FastScrollerView_textPadding)
       }
     }
+    val s = "something harmless"
 
     isFocusableInTouchMode = true
     isClickable = true
