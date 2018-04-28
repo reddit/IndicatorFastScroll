@@ -113,6 +113,7 @@ The fast scroller can be set up to filter out certain indicators from being show
 By default, the fast scroller handles scrolling the RecyclerView to the right section when it's pressed. However, in case you want to override this behavior, you can set `useDefaultScroller` to false and set up a callback with the fast scroller to handle it yourself.
 ##### Kotlin:
 ```kotlin
+fastScrollerView.useDefaultScroller = false
 fastScrollerView.itemIndicatorSelectedCallbacks += object : FastScrollerView.ItemIndicatorSelectedCallback {
   override fun onItemIndicatorSelected(
       indicator: FastScrollItemIndicator,
@@ -125,9 +126,17 @@ fastScrollerView.itemIndicatorSelectedCallbacks += object : FastScrollerView.Ite
 ```
 ##### Java:
 ```java
+fastScrollerView.setUseDefaultScroller(false);
 fastScrollerView.getItemIndicatorSelectedCallbacks().add(
-    (indicator, indicatorCenterY, itemPosition) -> {
-        // Handle scrolling
+    new FastScrollerView.ItemIndicatorSelectedCallback() {
+        @Override
+        public void onItemIndicatorSelected(
+            FastScrollItemIndicator indicator,
+            int indicatorCenterY,
+            int itemPosition
+        ) {
+            // Handle scrolling
+        }
     }
 );
 ```
