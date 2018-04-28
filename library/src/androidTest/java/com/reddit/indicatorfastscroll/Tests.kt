@@ -59,7 +59,7 @@ class Tests {
         TestActivity.ListItem("B", showInFastScroll = false),
         TestActivity.ListItem("C")
     )
-    val expectedText = "A\nC"
+    val expectedText = "Nope"
 
     activity.runOnUiThread {
       activity.presentData(items)
