@@ -86,7 +86,7 @@ In this function, return a `Text` if you want this position's section to be repr
 
 Indicators in the fast scroller won't have any duplicates. You should return identical `FastScrollItemIndicator`s for each item in your list that belongs to the same section. This often happens implicitly; if your database model contains a `section` field and you create a `FastScrollItemIndicator.Text` based on it, all items with the same `section` will be grouped together in the fast scroller. Similarly, if a list is alphabetical, creating a `FastScrollItemIndicator.Text` with the first letter of each item's name will result in all items starting with the same letter to be grouped together.
 
-The fast scroller observes your RecyclerView's adapter's data, and will call your mapping function for each list position whenever the data has changed. [Here's a sample](TODO).
+The fast scroller observes your RecyclerView's adapter's data, and will call your mapping function for each list position whenever the data has changed. [Here's a sample](https://github.com/reddit/IndicatorFastScroll/blob/master/sample/src/main/java/com/reddit/indicatorfastscroll/sample/examples/TextWithIconFragment.kt#L35-L53).
 
 ### Styling
 The fast scroller and thumb view support standard attributes that can be set in an XML layout or a custom style.
@@ -103,10 +103,10 @@ The fast scroller and thumb view support standard attributes that can be set in 
 * `android:textAppearance`: Text appearance for the currently selected text indicator
 * `android:textColor`: Color for the currently selected text indicator
 
-These can be set in an XML layout, style, or theme. [Here's a sample](TODO).
+These can be set in an XML layout, style, or theme. [Here's a sample](https://github.com/reddit/IndicatorFastScroll/blob/master/sample/src/main/res/layout/sample_styled.xml#L25-L47).
 
 ### Filtering out indicators
-The fast scroller can be set up to filter out certain indicators from being shown. `showIndicator` is a predicate that you can supply (either during `setupWithRecyclerView()` or at a later time) that lets you determine whether or not each indicator should be shown. For example, this can be used to hide some indicators if the screen is too short to fit them all. [Here's a sample](TODO).
+The fast scroller can be set up to filter out certain indicators from being shown. `showIndicator` is a predicate that you can supply (either during `setupWithRecyclerView()` or at a later time) that lets you determine whether or not each indicator should be shown. For example, this can be used to hide some indicators if the screen is too short to fit them all. [Here's a sample](https://github.com/reddit/IndicatorFastScroll/blob/master/sample/src/main/java/com/reddit/indicatorfastscroll/sample/examples/FilteredFragment.kt#L58-L61).
 
 ### Custom scroll handling
 
@@ -141,4 +141,4 @@ fastScrollerView.getItemIndicatorSelectedCallbacks().add(
 );
 ```
 
-[Here's a sample](TODO).
+[Here's a sample](https://github.com/reddit/IndicatorFastScroll/blob/master/sample/src/main/java/com/reddit/indicatorfastscroll/sample/examples/CustomScrollFragment.kt#L65-L76).
