@@ -74,7 +74,7 @@ It should be placed alongside the fast scroller. The exact layout hierarchy does
 
 Then, set up the thumb:
 ```kotlin
-fastScrollerThumbView.setupWithFastScrollView(fastScrollerView)
+fastScrollerThumbView.setupWithFastScroller(fastScrollerView)
 ```
 
 ## Advanced usage
