@@ -135,8 +135,10 @@ class FastScrollerThumbView @JvmOverloads constructor(
       indicatorCenterY: Int,
       itemPosition: Int
   ) {
-    val thumbTargetY = indicatorCenterY.toFloat() - (thumbView.measuredHeight / 2)
-    thumbAnimation.animateToFinalPosition(thumbTargetY)
+    val offset = (thumbView.measuredHeight / 2)
+    val thumbTargetY = maxOf(0, minOf(fastScrollerView!!.height - offset, indicatorCenterY) - offset)
+
+    thumbAnimation.animateToFinalPosition(thumbTargetY.toFloat())
 
     when (indicator) {
       is FastScrollItemIndicator.Text -> {
