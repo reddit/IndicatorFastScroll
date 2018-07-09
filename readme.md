@@ -16,7 +16,7 @@
 
 Add the dependency to your app's `build.gradle`:
 ```groovy
-implementation 'com.reddit:indicator-fast-scroll:1.0'
+implementation 'com.reddit:indicator-fast-scroll:1.0.1'
 ```
 
 Then, add the fast scroller to the layout with your RecyclerView:
