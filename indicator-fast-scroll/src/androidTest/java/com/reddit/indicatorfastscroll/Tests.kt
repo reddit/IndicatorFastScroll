@@ -38,18 +38,24 @@ class Tests {
         TestActivity.ListItem("K"),
         TestActivity.ListItem("L"),
         TestActivity.ListItem("M"),
-        TestActivity.ListItem("N")
+        TestActivity.ListItem("N"),
+        TestActivity.ListItem("O", android.R.drawable.ic_dialog_info)
     )
     val expectedTexts = listOf(
         "A", "C\nD", "F\nG\nH", "J\nK\nL\nM\nN"
     )
+    val expectedIconCount = items.count { it.iconRes != null }
 
     activity.runOnUiThread {
       activity.presentData(items)
     }
-    onView(withId(R.id.test_fastscroller)).check(matches(
-        allOf(expectedTexts.map { withChild(withText(it)) })
-    ))
+    onView(withId(R.id.test_fastscroller))
+        .check(matches(
+            allOf(expectedTexts.map { withChild(withText(it)) })
+        ))
+        .check(matches(
+            hasChildCount(expectedTexts.size + expectedIconCount)
+        ))
   }
 
   @Test

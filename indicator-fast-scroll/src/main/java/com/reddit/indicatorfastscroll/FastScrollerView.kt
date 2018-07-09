@@ -233,7 +233,7 @@ class FastScrollerView @JvmOverloads constructor(
     val viewCreators = ArrayList<() -> View>()
     itemIndicators.run {
       var index = 0
-      while (index < lastIndex) {
+      while (index <= lastIndex) {
         @Suppress("UNCHECKED_CAST")
         val textIndicatorsBatch = subList(index, size)
             .takeWhile { it is FastScrollItemIndicator.Text }
