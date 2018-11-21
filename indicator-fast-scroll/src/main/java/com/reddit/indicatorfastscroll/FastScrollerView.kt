@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
-import android.support.v4.widget.TextViewCompat
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.HapticFeedbackConstants
@@ -21,6 +19,8 @@ import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.use
 import androidx.core.view.children
 import androidx.core.view.updatePadding
+import androidx.core.widget.TextViewCompat
+import androidx.recyclerview.widget.RecyclerView
 
 typealias ItemIndicatorWithPosition = Pair<FastScrollItemIndicator, Int>
 
@@ -161,7 +161,10 @@ class FastScrollerView @JvmOverloads constructor(
     this.useDefaultScroller = useDefaultScroller
 
     updateItemIndicators()
-    recyclerView.adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+    val adapter = recyclerView.adapter ?: throw IllegalArgumentException(
+        "RecyclerView needs to have an adapter before setting up its fast scroller."
+    )
+    adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
       override fun onChanged() {
         postUpdateItemIndicators()
       }

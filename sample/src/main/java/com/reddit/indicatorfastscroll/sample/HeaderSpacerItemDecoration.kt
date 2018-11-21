@@ -1,8 +1,8 @@
 package com.reddit.indicatorfastscroll.sample
 
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 class HeaderSpacerItemDecoration(
     val getListItem: (Int) -> ListItem
@@ -12,9 +12,8 @@ class HeaderSpacerItemDecoration(
       outRect: Rect,
       view: View,
       parent: RecyclerView,
-      state: RecyclerView.State?
+      state: RecyclerView.State
   ) {
-
     val position = parent.getChildAdapterPosition(view)
     val listItem = getListItem(position)
     outRect.apply {
