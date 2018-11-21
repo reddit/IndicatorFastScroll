@@ -23,7 +23,5 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
-    implementation 'androidx.core:core-ktx:0.3'
-
     implementation 'com.thedeanda:lorem:2.1'
 }
