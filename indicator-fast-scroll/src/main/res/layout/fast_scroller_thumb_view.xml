@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:layout_height="match_parent"
     tools:layout_width="@dimen/fast_scroller_thumb_size"
-    tools:parentTag="android.support.constraint.ConstraintLayout"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
     >
 
   <FrameLayout

@@ -2,13 +2,17 @@ package com.reddit.indicatorfastscroll.sample
 
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isGone
-import com.reddit.indicatorfastscroll.sample.examples.*
+import androidx.fragment.app.Fragment
+import com.reddit.indicatorfastscroll.sample.examples.CustomScrollFragment
+import com.reddit.indicatorfastscroll.sample.examples.FilteredFragment
+import com.reddit.indicatorfastscroll.sample.examples.JustTextFragment
+import com.reddit.indicatorfastscroll.sample.examples.StyledFragment
+import com.reddit.indicatorfastscroll.sample.examples.TextWithIconFragment
 import com.thedeanda.lorem.LoremIpsum
 
 /**

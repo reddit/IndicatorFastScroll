@@ -1,19 +1,19 @@
 package com.reddit.indicatorfastscroll.sample.examples
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
+import com.reddit.indicatorfastscroll.FastScrollerThumbView
+import com.reddit.indicatorfastscroll.FastScrollerView
 import com.reddit.indicatorfastscroll.sample.ListItem
 import com.reddit.indicatorfastscroll.sample.R
 import com.reddit.indicatorfastscroll.sample.SAMPLE_DATA_TEXT
 import com.reddit.indicatorfastscroll.sample.SampleAdapter
-import com.reddit.indicatorfastscroll.FastScrollItemIndicator
-import com.reddit.indicatorfastscroll.FastScrollerThumbView
-import com.reddit.indicatorfastscroll.FastScrollerView
 
 class FilteredFragment : Fragment() {
 
