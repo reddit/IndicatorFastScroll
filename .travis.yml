@@ -2,10 +2,3 @@ language: android
 before_install:
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
-before_script:
-  - sdkmanager "system-images;android-21;default;armeabi-v7a"
-  - sdkmanager "emulator"
-  - echo no | avdmanager create avd -f -n fastscroller_test_emulator -k "system-images;android-21;default;armeabi-v7a"
-  - $ANDROID_HOME/emulator/emulator -avd fastscroller_test_emulator -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
