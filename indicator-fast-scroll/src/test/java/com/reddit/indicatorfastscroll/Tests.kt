@@ -13,8 +13,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.LooperMode
 
 @RunWith(AndroidJUnit4::class)
+@Config(sdk = [21], qualifiers = "xhdpi")
+@LooperMode(LooperMode.Mode.PAUSED)
 @LargeTest
 class Tests {
 
