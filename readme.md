@@ -52,7 +52,7 @@ fastScrollerView.setupWithRecyclerView(
 ```java
 fastScrollerView.setupWithRecyclerView(
     recyclerView,
-    () -> {
+    (position) -> {
         ItemModel item = data.get(position); // Get your model object
                                              // or fetch the section at [position] from your database
         return new FastScrollItemIndicator.Text(
