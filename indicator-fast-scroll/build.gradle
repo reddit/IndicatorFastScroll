@@ -1,5 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9.1'
+    }
+}
 
 def libraryVersionName = '1.1.0'
 
@@ -22,6 +32,18 @@ android {
             task.enabled = false
         }
     }
+}
+
+publish {
+    userOrg = 'reddit'
+    groupId = 'com.reddit'
+    repoName = 'IndicatorFastScroll'
+    artifactId = 'indicator-fast-scroll'
+    publishVersion = libraryVersionName
+    desc = ''
+    website = ''
+    autoPublish = false
+    dryRun = false
 }
 
 dependencies {
