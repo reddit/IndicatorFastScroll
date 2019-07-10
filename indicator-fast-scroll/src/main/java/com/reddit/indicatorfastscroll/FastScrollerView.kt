@@ -187,7 +187,7 @@ class FastScrollerView @JvmOverloads constructor(
     if (!isUpdateItemIndicatorsPosted) {
       isUpdateItemIndicatorsPosted = true
       post {
-        if (recyclerView!!.isAttachedToWindow) {
+        if (recyclerView!!.run { isAttachedToWindow && adapter != null }) {
           updateItemIndicators()
         }
         isUpdateItemIndicatorsPosted = false
