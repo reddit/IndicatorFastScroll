@@ -161,8 +161,23 @@ class FastScrollerView @JvmOverloads constructor(
     this.useDefaultScroller = useDefaultScroller
 
     updateItemIndicators()
-    val adapter = recyclerView.adapter ?: throw IllegalArgumentException(
-        "RecyclerView needs to have an adapter before setting up its fast scroller."
+    refreshAdapter()
+  }
+
+  /**
+   * Refreshes the adapter used for observing data changes. Call this method after [recyclerView]'s
+   * adapter has been changed to setup a new data observer and update item indicators.
+   */
+  fun refreshRecyclerViewAdapter(){
+    updateItemIndicators()
+    refreshAdapter()
+  }
+
+  private fun refreshAdapter(){
+    if(!isSetup) throw IllegalStateException("Not setup with RecyclerView.")
+
+    val adapter = recyclerView!!.adapter ?: throw IllegalArgumentException(
+            "RecyclerView needs to have an adapter."
     )
     adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
       override fun onChanged() {
@@ -170,16 +185,16 @@ class FastScrollerView @JvmOverloads constructor(
       }
 
       override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) =
-          onChanged()
+              onChanged()
 
       override fun onItemRangeInserted(positionStart: Int, itemCount: Int) =
-          onChanged()
+              onChanged()
 
       override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) =
-          onChanged()
+              onChanged()
 
       override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) =
-          onChanged()
+              onChanged()
     })
   }
 
