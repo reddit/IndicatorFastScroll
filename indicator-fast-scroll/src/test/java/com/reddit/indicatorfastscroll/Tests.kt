@@ -164,4 +164,35 @@ class Tests {
     assertEquals(2, testItemIndicatorsBuilder.timesBuildCalled)
   }
 
+  @Test
+  fun checkAdapterChange() {
+    val items1 = listOf(
+      TestActivity.ListItem("A"),
+      TestActivity.ListItem("B"),
+      TestActivity.ListItem("C")
+    )
+    val expectedText1 = "A\nB\nC"
+    val items2 = listOf(
+      TestActivity.ListItem("D"),
+      TestActivity.ListItem("E"),
+      TestActivity.ListItem("F")
+    )
+    val expectedText2 = "D\nE\nF"
+
+    activity.runOnUiThread {
+      activity.presentData(items1)
+    }
+    onView(withId(R.id.test_fastscroller))
+      .check(matches(withChild(withText(expectedText1))))
+      .check(matches(hasChildCount(1)))
+
+    activity.runOnUiThread {
+      activity.recreateAdapter()
+      activity.presentData(items2)
+    }
+    onView(withId(R.id.test_fastscroller))
+      .check(matches(withChild(withText(expectedText2))))
+      .check(matches(hasChildCount(1)))
+  }
+
 }

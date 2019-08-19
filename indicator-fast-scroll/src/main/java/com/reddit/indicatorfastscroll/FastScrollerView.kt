@@ -58,6 +58,16 @@ class FastScrollerView @JvmOverloads constructor(
 
   private val isSetup: Boolean get() = (recyclerView != null)
   private var recyclerView: RecyclerView? = null
+  private var adapter: RecyclerView.Adapter<*>? = null
+    set(value) {
+      field?.unregisterAdapterDataObserver(adapterDataObserver)
+      field = value
+      value?.let { newAdapter ->
+        newAdapter.registerAdapterDataObserver(adapterDataObserver)
+        postUpdateItemIndicators()
+      }
+    }
+  private val adapterDataObserver: RecyclerView.AdapterDataObserver = createAdapterDataObserver()
   private lateinit var getItemIndicator: (Int) -> FastScrollItemIndicator?
   /**
    * An optional predicate for deciding which indicators to show after they have been computed.
@@ -161,27 +171,17 @@ class FastScrollerView @JvmOverloads constructor(
     this.showIndicator = showIndicator
     this.useDefaultScroller = useDefaultScroller
 
-    updateItemIndicators()
-    val adapter = recyclerView.adapter ?: throw IllegalArgumentException(
-      "RecyclerView needs to have an adapter before setting up its fast scroller."
-    )
-    adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-      override fun onChanged() {
-        postUpdateItemIndicators()
+    this.adapter = recyclerView.adapter.also {
+      if (it != null) {
+        updateItemIndicators()
       }
-
-      override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) =
-        onChanged()
-
-      override fun onItemRangeInserted(positionStart: Int, itemCount: Int) =
-        onChanged()
-
-      override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) =
-        onChanged()
-
-      override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) =
-        onChanged()
-    })
+    }
+    recyclerView.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+      // RecyclerView#setAdapter calls requestLayout, so this can detect adapter changes
+      if (recyclerView.adapter !== adapter) {
+        this@FastScrollerView.adapter = recyclerView.adapter
+      }
+    }
   }
 
   private fun postUpdateItemIndicators() {
@@ -343,6 +343,29 @@ class FastScrollerView @JvmOverloads constructor(
 
     onItemIndicatorTouched?.invoke(consumed)
     return consumed
+  }
+
+  companion object {
+
+    private fun FastScrollerView.createAdapterDataObserver(): RecyclerView.AdapterDataObserver {
+      return object : RecyclerView.AdapterDataObserver() {
+        override fun onChanged() {
+          postUpdateItemIndicators()
+        }
+
+        override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) =
+          onChanged()
+
+        override fun onItemRangeInserted(positionStart: Int, itemCount: Int) =
+          onChanged()
+
+        override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) =
+          onChanged()
+
+        override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) =
+          onChanged()
+      }
+    }
   }
 
   interface ItemIndicatorSelectedCallback {
