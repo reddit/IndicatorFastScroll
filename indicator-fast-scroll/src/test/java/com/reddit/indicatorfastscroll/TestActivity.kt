@@ -50,6 +50,11 @@ class TestActivity : AppCompatActivity() {
     testAdapter.notifyDataSetChanged()
   }
 
+  fun recreateAdapter() {
+    testAdapter = TestAdapter()
+    recyclerView.adapter = testAdapter
+  }
+
   inner class TestAdapter : RecyclerView.Adapter<TestAdapter.ViewHolder>() {
 
     var data: List<ListItem> = emptyList()
