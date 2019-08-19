@@ -1,20 +1,14 @@
-[*]
-
 [*.{java,kt,xml}]
 charset=utf-8
 end_of_line=lf
 insert_final_newline=true
 trim_trailing_whitespace=true
 indent_style=space
-continuation_indent_size=4
 
 [*.{java,kt}]
 max_line_length=100
 spaces_around_operators=true
 indent_brace_style=K&R
-
-[*.java]
-indent_size=4
 
 [*.kt]
 indent_size=2

@@ -34,15 +34,15 @@ typealias ItemIndicatorWithPosition = Pair<FastScrollItemIndicator, Int>
  * @see FastScrollerThumbView
  */
 class FastScrollerView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.indicatorFastScrollerStyle,
-    defStyleRes: Int = R.style.Widget_IndicatorFastScroll_FastScroller
+  context: Context,
+  attrs: AttributeSet? = null,
+  defStyleAttr: Int = R.attr.indicatorFastScrollerStyle,
+  defStyleRes: Int = R.style.Widget_IndicatorFastScroll_FastScroller
 ) : LinearLayout(
-    context,
-    attrs,
-    defStyleAttr,
-    defStyleRes
+  context,
+  attrs,
+  defStyleAttr,
+  defStyleRes
 ) {
 
   var iconColor: ColorStateList? by onUpdate(::bindItemIndicatorViews)
@@ -93,17 +93,18 @@ class FastScrollerView @JvmOverloads constructor(
 
   init {
     context.theme.obtainStyledAttributes(
-        attrs,
-        R.styleable.FastScrollerView,
-        defStyleAttr,
-        defStyleRes
+      attrs,
+      R.styleable.FastScrollerView,
+      defStyleAttr,
+      defStyleRes
     ).use { attrsArray ->
       throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScroller) {
         iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_iconColor)
         textAppearanceRes = attrsArray.getResourceIdOrThrow(
-            R.styleable.FastScrollerView_android_textAppearance
+          R.styleable.FastScrollerView_android_textAppearance
         )
-        textColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_android_textColor)
+        textColor = attrsArray
+          .getColorStateListOrThrow(R.styleable.FastScrollerView_android_textColor)
         textPadding = attrsArray.getDimensionOrThrow(R.styleable.FastScrollerView_textPadding)
       }
     }
@@ -115,11 +116,11 @@ class FastScrollerView @JvmOverloads constructor(
 
     if (isInEditMode) {
       itemIndicatorsWithPositions += listOf(
-          ItemIndicatorWithPosition(FastScrollItemIndicator.Text("A"), 0),
-          ItemIndicatorWithPosition(FastScrollItemIndicator.Text("B"), 1),
-          ItemIndicatorWithPosition(FastScrollItemIndicator.Text("C"), 2),
-          ItemIndicatorWithPosition(FastScrollItemIndicator.Text("D"), 3),
-          ItemIndicatorWithPosition(FastScrollItemIndicator.Text("E"), 4)
+        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("A"), 0),
+        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("B"), 1),
+        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("C"), 2),
+        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("D"), 3),
+        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("E"), 4)
       )
       bindItemIndicatorViews()
     }
@@ -149,10 +150,10 @@ class FastScrollerView @JvmOverloads constructor(
    */
   @JvmOverloads
   fun setupWithRecyclerView(
-      recyclerView: RecyclerView,
-      getItemIndicator: (Int) -> FastScrollItemIndicator?,
-      showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? = null,
-      useDefaultScroller: Boolean = true
+    recyclerView: RecyclerView,
+    getItemIndicator: (Int) -> FastScrollItemIndicator?,
+    showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? = null,
+    useDefaultScroller: Boolean = true
   ) {
     if (isSetup) throw IllegalStateException("Only set this view's RecyclerView once!")
     this.recyclerView = recyclerView
@@ -162,7 +163,7 @@ class FastScrollerView @JvmOverloads constructor(
 
     updateItemIndicators()
     val adapter = recyclerView.adapter ?: throw IllegalArgumentException(
-        "RecyclerView needs to have an adapter before setting up its fast scroller."
+      "RecyclerView needs to have an adapter before setting up its fast scroller."
     )
     adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
       override fun onChanged() {
@@ -170,16 +171,16 @@ class FastScrollerView @JvmOverloads constructor(
       }
 
       override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) =
-          onChanged()
+        onChanged()
 
       override fun onItemRangeInserted(positionStart: Int, itemCount: Int) =
-          onChanged()
+        onChanged()
 
       override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) =
-          onChanged()
+        onChanged()
 
       override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) =
-          onChanged()
+        onChanged()
     })
   }
 
@@ -198,8 +199,8 @@ class FastScrollerView @JvmOverloads constructor(
   private fun updateItemIndicators() {
     itemIndicatorsWithPositions.clear()
     itemIndicatorsBuilder
-        .buildItemIndicators(recyclerView!!, getItemIndicator, showIndicator)
-        .toCollection(itemIndicatorsWithPositions)
+      .buildItemIndicators(recyclerView!!, getItemIndicator, showIndicator)
+      .toCollection(itemIndicatorsWithPositions)
 
     bindItemIndicatorViews()
   }
@@ -212,25 +213,25 @@ class FastScrollerView @JvmOverloads constructor(
     }
 
     fun createIconView(iconIndicator: FastScrollItemIndicator.Icon): ImageView =
-        (LayoutInflater.from(context).inflate(
-            R.layout.fast_scroller_indicator_icon, this, false
-        ) as ImageView).apply {
-          iconColor?.let(::setImageTintList)
-          setImageResource(iconIndicator.iconRes)
-          tag = iconIndicator
-        }
+      (LayoutInflater.from(context).inflate(
+        R.layout.fast_scroller_indicator_icon, this, false
+      ) as ImageView).apply {
+        iconColor?.let(::setImageTintList)
+        setImageResource(iconIndicator.iconRes)
+        tag = iconIndicator
+      }
 
     fun createTextView(textIndicators: List<FastScrollItemIndicator.Text>): TextView =
-        (LayoutInflater.from(context).inflate(
-            R.layout.fast_scroller_indicator_text, this, false
-        ) as TextView).apply {
-          TextViewCompat.setTextAppearance(this, textAppearanceRes)
-          textColor?.let(::setTextColor)
-          updatePadding(top = textPadding.toInt(), bottom = textPadding.toInt())
-          setLineSpacing(textPadding, lineSpacingMultiplier)
-          text = textIndicators.joinToString(separator = "\n") { it.text }
-          tag = textIndicators
-        }
+      (LayoutInflater.from(context).inflate(
+        R.layout.fast_scroller_indicator_text, this, false
+      ) as TextView).apply {
+        TextViewCompat.setTextAppearance(this, textAppearanceRes)
+        textColor?.let(::setTextColor)
+        updatePadding(top = textPadding.toInt(), bottom = textPadding.toInt())
+        setLineSpacing(textPadding, lineSpacingMultiplier)
+        text = textIndicators.joinToString(separator = "\n") { it.text }
+        tag = textIndicators
+      }
 
     // Optimize the views by batching adjacent text indicators into a single TextView
     val viewCreators = ArrayList<() -> View>()
@@ -239,8 +240,8 @@ class FastScrollerView @JvmOverloads constructor(
       while (index <= lastIndex) {
         @Suppress("UNCHECKED_CAST")
         val textIndicatorsBatch = subList(index, size)
-            .takeWhile { it is FastScrollItemIndicator.Text }
-            as List<FastScrollItemIndicator.Text>
+          .takeWhile { it is FastScrollItemIndicator.Text }
+          as List<FastScrollItemIndicator.Text>
         if (textIndicatorsBatch.isNotEmpty()) {
           viewCreators.add { createTextView(textIndicatorsBatch) }
           index += textIndicatorsBatch.size
@@ -264,24 +265,24 @@ class FastScrollerView @JvmOverloads constructor(
   }
 
   private fun selectItemIndicator(
-      indicator: FastScrollItemIndicator,
-      indicatorCenterY: Int
+    indicator: FastScrollItemIndicator,
+    indicatorCenterY: Int
   ) {
     val position = itemIndicatorsWithPositions
-        .first { it.first == indicator }
-        .let(ItemIndicatorWithPosition::second)
+      .first { it.first == indicator }
+      .let(ItemIndicatorWithPosition::second)
     if (position != lastSelectedPosition) {
       lastSelectedPosition = position
       if (useDefaultScroller) {
         scrollToPosition(position)
       }
       performHapticFeedback(
-          // Semantically, dragging across the indicators is similar to moving a text handle
-          if (Build.VERSION.SDK_INT >= 27) {
-            HapticFeedbackConstants.TEXT_HANDLE_MOVE
-          } else {
-            HapticFeedbackConstants.KEYBOARD_TAP
-          }
+        // Semantically, dragging across the indicators is similar to moving a text handle
+        if (Build.VERSION.SDK_INT >= 27) {
+          HapticFeedbackConstants.TEXT_HANDLE_MOVE
+        } else {
+          HapticFeedbackConstants.KEYBOARD_TAP
+        }
       )
       itemIndicatorSelectedCallbacks.forEach {
         it.onItemIndicatorSelected(indicator, indicatorCenterY, position)
@@ -324,13 +325,13 @@ class FastScrollerView @JvmOverloads constructor(
             val textIndicatorsTouchY = touchY - view.top
             val textLineHeight = view.height / possibleTouchedIndicators.size
             val touchedIndicatorIndex = Math.min(
-                textIndicatorsTouchY / textLineHeight,
-                possibleTouchedIndicators.lastIndex
+              textIndicatorsTouchY / textLineHeight,
+              possibleTouchedIndicators.lastIndex
             )
             val touchedIndicator = possibleTouchedIndicators[touchedIndicatorIndex]
 
             val centerY = view.y.toInt() +
-                (textLineHeight / 2) + (touchedIndicatorIndex * textLineHeight)
+              (textLineHeight / 2) + (touchedIndicatorIndex * textLineHeight)
             selectItemIndicator(touchedIndicator, centerY)
             consumed = true
           }
@@ -341,15 +342,14 @@ class FastScrollerView @JvmOverloads constructor(
     isPressed = consumed
 
     onItemIndicatorTouched?.invoke(consumed)
-    return consumed;
+    return consumed
   }
 
   interface ItemIndicatorSelectedCallback {
     fun onItemIndicatorSelected(
-        indicator: FastScrollItemIndicator,
-        indicatorCenterY: Int,
-        itemPosition: Int
+      indicator: FastScrollItemIndicator,
+      indicatorCenterY: Int,
+      itemPosition: Int
     )
   }
-
 }

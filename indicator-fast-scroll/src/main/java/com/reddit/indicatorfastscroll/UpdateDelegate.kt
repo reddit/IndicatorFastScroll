@@ -24,7 +24,6 @@ internal class UpdateDelegate<T>(val update: () -> Unit) : ReadWriteProperty<Any
       update()
     }
   }
-
 }
 
 /**
