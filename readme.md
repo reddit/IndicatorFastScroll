@@ -17,7 +17,7 @@
 Add the dependency to your app's `build.gradle`:
 ##### AndroidX:
 ```groovy
-implementation 'com.reddit:indicator-fast-scroll:1.1.0'
+implementation 'com.reddit:indicator-fast-scroll:1.2.0'
 ```
 ##### Pre-AndroidX (older projects):
 ```groovy
