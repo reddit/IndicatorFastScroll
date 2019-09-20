@@ -21,6 +21,7 @@ import androidx.core.view.children
 import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.min
 
 typealias ItemIndicatorWithPosition = Pair<FastScrollItemIndicator, Int>
 
@@ -165,7 +166,7 @@ class FastScrollerView @JvmOverloads constructor(
     showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? = null,
     useDefaultScroller: Boolean = true
   ) {
-    if (isSetup) throw IllegalStateException("Only set this view's RecyclerView once!")
+    check(!isSetup) { "Only set this view's RecyclerView once!" }
     this.recyclerView = recyclerView
     this.getItemIndicator = getItemIndicator
     this.showIndicator = showIndicator
@@ -246,8 +247,7 @@ class FastScrollerView @JvmOverloads constructor(
           viewCreators.add { createTextView(textIndicatorsBatch) }
           index += textIndicatorsBatch.size
         } else {
-          val indicator = this[index]
-          when (indicator) {
+          when (val indicator = this[index]) {
             is FastScrollItemIndicator.Icon -> {
               viewCreators.add { createIconView(indicator) }
             }
@@ -324,7 +324,7 @@ class FastScrollerView @JvmOverloads constructor(
             val possibleTouchedIndicators = view.tag as List<FastScrollItemIndicator.Text>
             val textIndicatorsTouchY = touchY - view.top
             val textLineHeight = view.height / possibleTouchedIndicators.size
-            val touchedIndicatorIndex = Math.min(
+            val touchedIndicatorIndex = min(
               textIndicatorsTouchY / textLineHeight,
               possibleTouchedIndicators.lastIndex
             )
