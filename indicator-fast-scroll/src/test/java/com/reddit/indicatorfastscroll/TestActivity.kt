@@ -74,7 +74,7 @@ class TestActivity : AppCompatActivity() {
         AppCompatTextView(context).apply {
           layoutParams = ViewGroup.LayoutParams(
               ViewGroup.LayoutParams.MATCH_PARENT,
-              getDimenPixelSize(R.dimen.test_item_height)
+              resources.getDimensionPixelSize(R.dimen.test_item_height)
           )
         }
     ) {
