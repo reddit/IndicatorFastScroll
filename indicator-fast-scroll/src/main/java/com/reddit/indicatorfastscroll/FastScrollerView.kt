@@ -301,7 +301,7 @@ class FastScrollerView @JvmOverloads constructor(
   override fun onTouchEvent(event: MotionEvent): Boolean {
     fun View.containsY(y: Int) = y in (top until bottom)
 
-    if (event.action == MotionEvent.ACTION_UP) {
+    if (event.action in MOTIONEVENT_STOP_ACTIONS) {
       isPressed = false
       lastSelectedPosition = null
       onItemIndicatorTouched?.invoke(false)
@@ -346,6 +346,11 @@ class FastScrollerView @JvmOverloads constructor(
   }
 
   companion object {
+
+    private val MOTIONEVENT_STOP_ACTIONS = intArrayOf(
+      MotionEvent.ACTION_UP,
+      MotionEvent.ACTION_CANCEL
+    )
 
     private fun FastScrollerView.createAdapterDataObserver(): RecyclerView.AdapterDataObserver {
       return object : RecyclerView.AdapterDataObserver() {
