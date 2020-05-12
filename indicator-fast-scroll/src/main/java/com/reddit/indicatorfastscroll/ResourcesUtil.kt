@@ -1,6 +1,8 @@
 package com.reddit.indicatorfastscroll
 
+import android.content.res.ColorStateList
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
 
 internal fun View.throwIfMissingAttrs(@StyleRes styleRes: Int, block: () -> Unit) {
@@ -14,4 +16,9 @@ internal fun View.throwIfMissingAttrs(@StyleRes styleRes: Int, block: () -> Unit
       e
     )
   }
+}
+
+@ColorInt
+internal fun ColorStateList.getColorForState(stateSet: IntArray): Int? {
+  return getColorForState(stateSet, defaultColor).takeIf { it != defaultColor }
 }

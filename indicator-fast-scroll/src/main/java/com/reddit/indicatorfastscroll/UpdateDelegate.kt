@@ -3,7 +3,7 @@ package com.reddit.indicatorfastscroll
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-internal class UpdateDelegate<T>(val update: () -> Unit) : ReadWriteProperty<Any?, T> {
+internal class UpdateDelegate<T>(val update: (T) -> Unit) : ReadWriteProperty<Any?, T> {
 
   var set = false
   var value: T? = null
@@ -21,7 +21,7 @@ internal class UpdateDelegate<T>(val update: () -> Unit) : ReadWriteProperty<Any
     this.set = true
     this.value = value
     if (wasSet) {
-      update()
+      update(value)
     }
   }
 }
@@ -29,4 +29,6 @@ internal class UpdateDelegate<T>(val update: () -> Unit) : ReadWriteProperty<Any
 /**
  * A delegate that sets a backing value and calls [update] on every change after the first.
  */
-internal fun <T> onUpdate(update: () -> Unit) = UpdateDelegate<T>(update)
+internal fun <T> onUpdate(update: (T) -> Unit) = UpdateDelegate(update)
+
+internal fun <T> onUpdate(update: () -> Unit) = UpdateDelegate<T> { update() }

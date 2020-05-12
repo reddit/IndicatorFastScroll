@@ -46,10 +46,31 @@ class FastScrollerView @JvmOverloads constructor(
   defStyleRes
 ) {
 
-  var iconColor: ColorStateList? by onUpdate(::bindItemIndicatorViews)
-  var textAppearanceRes: Int by onUpdate(::bindItemIndicatorViews)
-  var textColor: ColorStateList? by onUpdate(::bindItemIndicatorViews)
-  var textPadding: Float by onUpdate(::bindItemIndicatorViews)
+  var iconColor: ColorStateList? = null
+    set(value) {
+      field = value
+      pressedIconColor = value?.getColorForState(intArrayOf(android.R.attr.state_activated))
+      bindItemIndicatorViews()
+    }
+  var textAppearanceRes: Int = 0
+    set(value) {
+      field = value
+      bindItemIndicatorViews()
+    }
+  var textColor: ColorStateList? = null
+    set(value) {
+      field = value
+      pressedTextColor = value?.getColorForState(intArrayOf(android.R.attr.state_activated))
+      bindItemIndicatorViews()
+    }
+  var textPadding: Float = 0f
+    set(value) {
+      field = value
+      bindItemIndicatorViews()
+    }
+
+  private var pressedIconColor: Int? = null
+  private var pressedTextColor: Int? = null
 
   internal var itemIndicatorsBuilder: ItemIndicatorsBuilder = ItemIndicatorsBuilder()
 
@@ -79,7 +100,7 @@ class FastScrollerView @JvmOverloads constructor(
    * The function will be called when building the list of indicators, which happens after the
    * RecyclerView's adapter's data changes. It will be called on the UI thread.
    */
-  var showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? by onUpdate {
+  var showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? by onUpdate { _ ->
     postUpdateItemIndicators()
   }
 
@@ -235,7 +256,7 @@ class FastScrollerView @JvmOverloads constructor(
       }
 
     // Optimize the views by batching adjacent text indicators into a single TextView
-    val viewCreators = ArrayList<() -> View>()
+    val views = ArrayList<View>()
     itemIndicators.run {
       var index = 0
       while (index <= lastIndex) {
@@ -244,12 +265,12 @@ class FastScrollerView @JvmOverloads constructor(
           .takeWhile { it is FastScrollItemIndicator.Text }
           as List<FastScrollItemIndicator.Text>
         if (textIndicatorsBatch.isNotEmpty()) {
-          viewCreators.add { createTextView(textIndicatorsBatch) }
+          views.add(createTextView(textIndicatorsBatch))
           index += textIndicatorsBatch.size
         } else {
           when (val indicator = this[index]) {
             is FastScrollItemIndicator.Icon -> {
-              viewCreators.add { createIconView(indicator) }
+              views.add(createIconView(indicator))
             }
             is FastScrollItemIndicator.Text -> {
               throw IllegalStateException("Text indicator wasn't batched")
@@ -259,19 +280,20 @@ class FastScrollerView @JvmOverloads constructor(
         }
       }
     }
-    viewCreators.forEach { createView ->
-      addView(createView())
-    }
+    views.forEach(::addView)
   }
 
   private fun selectItemIndicator(
     indicator: FastScrollItemIndicator,
-    indicatorCenterY: Int
+    indicatorCenterY: Int,
+    touchedView: View,
+    textLine: Int?
   ) {
     val position = itemIndicatorsWithPositions
       .first { it.first == indicator }
       .let(ItemIndicatorWithPosition::second)
     if (position != lastSelectedPosition) {
+      clearSelectedItemIndicator()
       lastSelectedPosition = position
       if (useDefaultScroller) {
         scrollToPosition(position)
@@ -284,9 +306,26 @@ class FastScrollerView @JvmOverloads constructor(
           HapticFeedbackConstants.KEYBOARD_TAP
         }
       )
+      if (touchedView is ImageView) {
+        touchedView.isActivated = true
+      } else if (textLine != null) {
+        pressedTextColor?.let { color ->
+          TextColorUtil.highlightAtIndex(touchedView as TextView, textLine, color)
+        }
+      }
       itemIndicatorSelectedCallbacks.forEach {
         it.onItemIndicatorSelected(indicator, indicatorCenterY, position)
       }
+    }
+  }
+
+  private fun clearSelectedItemIndicator() {
+    lastSelectedPosition = null
+    if (pressedIconColor != null) {
+      children.filterIsInstance<ImageView>().forEach { it.isActivated = false }
+    }
+    if (pressedTextColor != null) {
+      children.filterIsInstance<TextView>().forEach(TextColorUtil::clearHighlight)
     }
   }
 
@@ -301,9 +340,9 @@ class FastScrollerView @JvmOverloads constructor(
   override fun onTouchEvent(event: MotionEvent): Boolean {
     fun View.containsY(y: Int) = y in (top until bottom)
 
-    if (event.action in MOTIONEVENT_STOP_ACTIONS) {
+    if (event.actionMasked in MOTIONEVENT_STOP_ACTIONS) {
       isPressed = false
-      lastSelectedPosition = null
+      clearSelectedItemIndicator()
       onItemIndicatorTouched?.invoke(false)
       return false
     }
@@ -316,7 +355,7 @@ class FastScrollerView @JvmOverloads constructor(
           is ImageView -> {
             val touchedIndicator = view.tag as FastScrollItemIndicator.Icon
             val centerY = view.y.toInt() + (view.height / 2)
-            selectItemIndicator(touchedIndicator, centerY)
+            selectItemIndicator(touchedIndicator, centerY, view, textLine = null)
             consumed = true
           }
           is TextView -> {
@@ -332,7 +371,7 @@ class FastScrollerView @JvmOverloads constructor(
 
             val centerY = view.y.toInt() +
               (textLineHeight / 2) + (touchedIndicatorIndex * textLineHeight)
-            selectItemIndicator(touchedIndicator, centerY)
+            selectItemIndicator(touchedIndicator, centerY, view, textLine = touchedIndicatorIndex)
             consumed = true
           }
         }
