@@ -1,7 +1,13 @@
+def libraryArtifactId = 'indicator-fast-scroll'
+def libraryVersionName = '1.3.0'
+
+group = 'com.reddit'
+version = libraryVersionName
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
-def libraryVersionName = '1.3.0'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 29
@@ -20,6 +26,36 @@ android {
     libraryVariants.all {
         it.generateBuildConfigProvider.configure { task ->
             task.enabled = false
+        }
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                // Creates a Maven publication called "release".
+                release(MavenPublication) {
+                    from components.release
+                    artifactId = libraryArtifactId
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USERNAME')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['release']
+    pkg {
+        repo = 'IndicatorFastScroll'
+        name = libraryArtifactId
+        userOrg = 'reddit'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/reddit/IndicatorFastScroll.git'
+        version {
+            name = libraryVersionName
         }
     }
 }
