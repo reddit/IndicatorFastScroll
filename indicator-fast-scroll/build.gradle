@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-def libraryVersionName = '1.3.0'
+def libraryVersionName = '1.4.0-SNAPSHOT'
 
 android {
     compileSdkVersion 29
