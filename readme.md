@@ -97,14 +97,14 @@ The fast scroller observes your RecyclerView's adapter's data, and will call you
 The fast scroller and thumb view support standard attributes that can be set in an XML layout or a custom style.
 
 ##### FastScrollerView
-* `iconColor`: Color or ColorStateList for tinting icon indicators (supports `state_pressed="true"`)
+* `fastScrollerIconColor`: Color or ColorStateList for tinting icon indicators (supports `state_pressed="true"`)
 * `android:textAppearance`: Text appearance for text indicators
 * `android:textColor`: Color or ColorStateList for text indicators (supports `state_pressed="true"`)
-* `textPadding`: Dimension for vertical padding applied to text indicators
+* `fastScrollerTextPadding`: Dimension for vertical padding applied to text indicators
 
 ##### FastScrollerThumbView
-* `thumbColor`: Color for the background of the thumb circle
-* `iconColor`: Color for tinting the currently selected icon indicator
+* `fastScrollerThumbColor`: Color for the background of the thumb circle
+* `fastScrollerIconColor`: Color for tinting the currently selected icon indicator
 * `android:textAppearance`: Text appearance for the currently selected text indicator
 * `android:textColor`: Color for the currently selected text indicator
 
