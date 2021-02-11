@@ -2,6 +2,7 @@
 <resources>
 
   <style name="Widget.IndicatorFastScroll.FastScroller" parent="android:Widget">
+    <item name="fastScrollerIconSize">20dp</item>
     <item name="fastScrollerIconColor">?android:textColorPrimary</item>
     <item name="android:textAppearance">?android:textAppearanceSmall</item>
     <item name="android:textColor">?android:textColorPrimary</item>
@@ -9,6 +10,7 @@
   </style>
 
   <style name="Widget.IndicatorFastScroll.FastScrollerThumb" parent="android:Widget">
+    <item name="fastScrollerIconSize">24dp</item>
     <item name="fastScrollerThumbColor">?colorPrimary</item>
     <item name="fastScrollerIconColor">?android:textColorPrimaryInverse</item>
     <item name="android:textAppearance">?android:textAppearance</item>

@@ -15,9 +15,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.res.getColorStateListOrThrow
 import androidx.core.content.res.getDimensionOrThrow
+import androidx.core.content.res.getDimensionPixelSizeOrThrow
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.use
 import androidx.core.view.children
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +48,11 @@ class FastScrollerView @JvmOverloads constructor(
   defStyleRes
 ) {
 
+  var iconSize: Int = 0
+    set(value) {
+      field = value
+      bindItemIndicatorViews()
+    }
   var iconColor: ColorStateList? = null
     set(value) {
       field = value
@@ -131,6 +138,7 @@ class FastScrollerView @JvmOverloads constructor(
       defStyleRes
     ).use { attrsArray ->
       throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScroller) {
+        iconSize = attrsArray.getDimensionPixelSizeOrThrow(R.styleable.FastScrollerView_fastScrollerIconSize)
         iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_fastScrollerIconColor)
         textAppearanceRes = attrsArray.getResourceIdOrThrow(
           R.styleable.FastScrollerView_android_textAppearance
@@ -238,6 +246,10 @@ class FastScrollerView @JvmOverloads constructor(
       (LayoutInflater.from(context).inflate(
         R.layout.fast_scroller_indicator_icon, this, false
       ) as ImageView).apply {
+        updateLayoutParams {
+          width = iconSize
+          height = iconSize
+        }
         iconColor?.let(::setImageTintList)
         setImageResource(iconIndicator.iconRes)
         tag = iconIndicator

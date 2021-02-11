@@ -13,10 +13,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.getColorOrThrow
 import androidx.core.content.res.getColorStateListOrThrow
+import androidx.core.content.res.getDimensionPixelSizeOrThrow
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.use
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.TextViewCompat
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
@@ -45,6 +47,7 @@ class FastScrollerThumbView @JvmOverloads constructor(
 ), FastScrollerView.ItemIndicatorSelectedCallback {
 
   var thumbColor: ColorStateList by onUpdate(::applyStyle)
+  var iconSize: Int by onUpdate(::applyStyle)
   var iconColor: Int by onUpdate(::applyStyle)
   var textAppearanceRes: Int by onUpdate(::applyStyle)
   var textColor: Int by onUpdate(::applyStyle)
@@ -68,6 +71,7 @@ class FastScrollerThumbView @JvmOverloads constructor(
       throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScrollerThumb) {
         thumbColor = attrsArray
           .getColorStateListOrThrow(R.styleable.FastScrollerThumbView_fastScrollerThumbColor)
+        iconSize = attrsArray.getDimensionPixelSizeOrThrow(R.styleable.FastScrollerThumbView_fastScrollerIconSize)
         iconColor = attrsArray.getColorOrThrow(R.styleable.FastScrollerThumbView_fastScrollerIconColor)
         textAppearanceRes = attrsArray.getResourceIdOrThrow(
           R.styleable.FastScrollerThumbView_android_textAppearance
@@ -128,6 +132,10 @@ class FastScrollerThumbView @JvmOverloads constructor(
     }
     TextViewCompat.setTextAppearance(textView, textAppearanceRes)
     textView.setTextColor(textColor)
+    iconView.updateLayoutParams {
+      width = iconSize
+      height = iconSize
+    }
     iconView.imageTintList = ColorStateList.valueOf(iconColor)
   }
 
