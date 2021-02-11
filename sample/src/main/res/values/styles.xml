@@ -12,12 +12,12 @@
   <!-- See the parent styles for more attributes -->
 
   <style name="Widget.FastScrollSample.FastScroller" parent="Widget.IndicatorFastScroll.FastScroller">
-    <item name="iconColor">@color/pressed_selector</item>
+    <item name="fastScrollerIconColor">@color/pressed_selector</item>
     <item name="android:textColor">@color/pressed_selector</item>
   </style>
 
   <style name="Widget.FastScrollSample.FastScroller.Floating">
-    <item name="iconColor">?colorAccent</item>
+    <item name="fastScrollerIconColor">?colorAccent</item>
     <item name="android:textColor">?colorAccent</item>
     <item name="android:background">@drawable/fastscroller_floating_background</item>
     <item name="android:elevation">2dp</item>
@@ -26,7 +26,7 @@
   <style name="Widget.FastScrollSample.FastScrollerThumb" parent="Widget.IndicatorFastScroll.FastScrollerThumb" />
 
   <style name="Widget.FastScrollSample.FastScrollerThumb.Colorful">
-    <item name="thumbColor">?colorAccent</item>
+    <item name="fastScrollerThumbColor">?colorAccent</item>
   </style>
 
 </resources>

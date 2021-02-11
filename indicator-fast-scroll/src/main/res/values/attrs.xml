@@ -4,16 +4,20 @@
   <attr name="indicatorFastScrollerStyle" format="reference" />
   <attr name="indicatorFastScrollerThumbStyle" format="reference" />
 
+  <attr name="fastScrollerIconColor" format="color" />
+  <attr name="fastScrollerTextPadding" format="dimension" />
+  <attr name="fastScrollerThumbColor" format="color" />
+
   <declare-styleable name="FastScrollerView">
-    <attr name="iconColor" format="color" />
+    <attr name="fastScrollerIconColor" />
     <attr name="android:textAppearance" />
     <attr name="android:textColor" />
-    <attr name="textPadding" format="dimension" />
+    <attr name="fastScrollerTextPadding" />
   </declare-styleable>
 
   <declare-styleable name="FastScrollerThumbView">
-    <attr name="thumbColor" format="color" />
-    <attr name="iconColor" />
+    <attr name="fastScrollerThumbColor" />
+    <attr name="fastScrollerIconColor" />
     <attr name="android:textAppearance" />
     <attr name="android:textColor" />
   </declare-styleable>
