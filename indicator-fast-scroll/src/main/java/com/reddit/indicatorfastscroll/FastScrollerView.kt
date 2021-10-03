@@ -155,13 +155,8 @@ class FastScrollerView @JvmOverloads constructor(
     gravity = Gravity.CENTER
 
     if (isInEditMode) {
-      itemIndicatorsWithPositions += listOf(
-        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("A"), 0),
-        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("B"), 1),
-        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("C"), 2),
-        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("D"), 3),
-        ItemIndicatorWithPosition(FastScrollItemIndicator.Text("E"), 4)
-      )
+      itemIndicatorsWithPositions += "ABCDE"
+        .map{ ind -> ItemIndicatorWithPosition(FastScrollItemIndicator.Text(ind), ind.toInt() - 'A'.toInt() }
       bindItemIndicatorViews()
     }
   }
