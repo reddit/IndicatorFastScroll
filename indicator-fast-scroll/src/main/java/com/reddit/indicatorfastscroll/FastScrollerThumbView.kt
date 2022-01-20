@@ -146,20 +146,13 @@ class FastScrollerThumbView @JvmOverloads constructor(
   ) {
     val thumbTargetY = indicatorCenterY.toFloat() - (thumbView.measuredHeight / 2)
     thumbAnimation.animateToFinalPosition(thumbTargetY)
-
-    when (indicator) {
-      is FastScrollItemIndicator.Text -> {
-        textView.isVisible = true
-        iconView.isVisible = false
-
-        textView.text = indicator.text
-      }
-      is FastScrollItemIndicator.Icon -> {
-        textView.isVisible = false
-        iconView.isVisible = true
-
-        iconView.setImageResource(indicator.iconRes)
-      }
+    
+    textView.isVisible = indicator is FastScrollItemIndicator.Text
+    iconView.isVisible = !textView.isVisible
+    
+    when (textView.isVisible) {
+      true -> textView.text = indicator.text
+      false -> iconView.setImageResource(indicator.iconRes)
     }
   }
 }
