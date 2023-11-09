@@ -1,17 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.9.2'
-    }
-}
-
-def libraryVersionName = '1.4.0'
+def libraryVersionName = '1.4.0-favor'
 
 android {
     compileSdkVersion 29
@@ -34,16 +25,25 @@ android {
     }
 }
 
-publish {
-    userOrg = 'reddit'
-    groupId = 'com.reddit'
-    repoName = 'IndicatorFastScroll'
-    artifactId = 'indicator-fast-scroll'
-    publishVersion = libraryVersionName
-    desc = ''
-    website = ''
-    autoPublish = false
-    dryRun = false
+afterEvaluate {
+    publishing {
+        publications {
+            IndicatorFastScroll(MavenPublication) {
+                from components.release
+                groupId 'com.reddit'
+                artifactId 'indicator-fast-scroll'
+                version '1.4.0-favor'
+            }
+        }
+
+        repositories {
+            maven {
+                name = "IndicatorFastScrollRepo"
+                url = project.uri("https://maven.pkg.github.com/favordelivery/IndicatorFastScroll")
+                credentials(PasswordCredentials)
+            }
+        }
+    }
 }
 
 dependencies {
